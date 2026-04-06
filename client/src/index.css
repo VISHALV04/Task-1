@@ -1,12 +1,305 @@
 @import "tailwindcss";
 
-/* Reset & base styles */
-* {
+/* ============================================================
+   TASK FLOW — Design System
+   Font: Inter (Google Fonts)
+   Palette: Dark navy + indigo accent
+   ============================================================ */
+
+/* ── Reset ── */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: sans-serif;
+:root {
+  /* Colors */
+  --clr-bg:          #0f1117;
+  --clr-surface:     #181c27;
+  --clr-surface-2:   #1e2332;
+  --clr-border:      rgba(255,255,255,0.07);
+  --clr-accent:      #6366f1;       /* indigo-500 */
+  --clr-accent-soft: rgba(99,102,241,0.15);
+  --clr-accent-glow: rgba(99,102,241,0.35);
+  --clr-text:        #e2e8f0;
+  --clr-muted:       #64748b;
+  --clr-avatar-bg:   #4f46e5;
+
+  /* Spacing */
+  --topbar-h: 60px;
+  --sidebar-w: 240px;
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+
+  /* Transitions */
+  --t: 0.2s ease;
 }
+
+html, body, #root {
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+.topbar {
+  height: var(--topbar-h);
+  background: var(--clr-surface);
+  border-bottom: 1px solid var(--clr-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(12px);
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-logo {
+  font-size: 1.4rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 8px var(--clr-accent-glow));
+}
+
+.topbar-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #a5b4fc, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   BODY WRAPPER
+   ============================================================ */
+.body-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--clr-surface);
+  border-right: 1px solid var(--clr-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding: 20px 12px;
+}
+
+/* ── Nav links ── */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  border: none;
+  background: transparent;
+  color: var(--clr-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--t), color var(--t), transform var(--t);
+  text-align: left;
+}
+
+.sidebar-nav-item:hover {
+  background: var(--clr-accent-soft);
+  color: var(--clr-text);
+  transform: translateX(3px);
+}
+
+.sidebar-nav-item.active {
+  background: var(--clr-accent-soft);
+  color: #a5b4fc;
+  box-shadow: inset 3px 0 0 var(--clr-accent);
+}
+
+.sidebar-nav-icon {
+  flex-shrink: 0;
+  display: flex;
+}
+
+.sidebar-nav-label {
+  font-weight: 500;
+}
+
+/* ── Profile ── */
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--clr-border);
+  margin-top: 12px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background var(--t);
+}
+
+.sidebar-profile:hover {
+  background: var(--clr-surface-2);
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--clr-accent), #818cf8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--clr-accent-glow);
+  user-select: none;
+}
+
+.sidebar-profile-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-profile-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--clr-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-profile-role {
+  font-size: 0.75rem;
+  color: var(--clr-muted);
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 36px 40px;
+  background: var(--clr-bg);
+}
+
+/* ── Page header ── */
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin-bottom: 6px;
+}
+
+.page-desc {
+  font-size: 0.9rem;
+  color: var(--clr-muted);
+}
+
+/* ── Cards ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+  border-color: var(--clr-accent-glow);
+}
+
+/* Skeleton shimmer shapes */
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-sm);
+  background: var(--clr-accent-soft);
+  animation: shimmer 2s infinite;
+}
+
+.card-line {
+  height: 10px;
+  border-radius: 6px;
+  background: var(--clr-surface-2);
+  animation: shimmer 2s infinite;
+}
+
+.card-line.short {
+  width: 55%;
+  height: 14px;
+}
+
+@keyframes shimmer {
+  0%   { opacity: 0.6; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--clr-surface-2); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--clr-accent); }
